@@ -52,7 +52,8 @@ Clone ou faça o downlod desse repositório:
 
 
 # Clone o repositório
-$ git clone https://github.com/rosooares/nextlevelweek
+
+$ git clone git@github.com:HelenaJuliana/nextlevelweekEcoleta.git
 Acesse a pasta server e faça as instalações:
 
 # Acesse a pasta do backend
@@ -98,8 +99,6 @@ $ npm start
 
 # A Expo será aberta, basta digitalizar o qrcode no terminal ou na página da exposição
 
-# Se houver algum problema com as fontes, execute:
-$ expo install expo-font @expo-google-fonts/ubuntu @expo-google-fonts/roboto
 
 # Você pode installar o aplicativo Expo para testar no celular
 Agradecimentos Rocketseat

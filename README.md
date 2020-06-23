@@ -101,9 +101,9 @@ $ npm start
 
 
 # Você pode installar o aplicativo Expo para testar no celular
+
 Agradecimentos Rocketseat
 
-👤 Helena Juliana Barros
+👤 Helena Juliana Barros Miguel
 
-Github: HelenaJuliana
-Linkedin: Helena Juliana
+

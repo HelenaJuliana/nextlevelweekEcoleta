@@ -1,19 +1,31 @@
 # nextlevelweekEcoleta
 :rocket::recycle: A NLW é uma experiência online criada pela Rocketseat de uma semana com muito conteúdo prático, desafios, hacks e um projeto que nos ajudam a avançar para o próximo nível e impulsionar a nossa carreira.
 
+
 🚀 Tecnologias
+
+
 
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 React
+
 TypeScript
+
 Node.js
+
 Knex
+
 SQLite
+
 React Native
+
 Expo
 
+
+
 💻 Projeto
+
 
 🏭     ./server - API REST usando TypeScript, Express e banco de dados SQLite
 
@@ -22,14 +34,22 @@ Expo
 📱     ./mobile - Interface mobile em ReactNative, TypeScript e Expo
 
 
+
+
 ✨ Sobre o projeto:
 
 
 O Ecoleta é um projeto criado para gerenciar o processo de coleta de lixo nas cidades. Com ele, é possível ajudar pessoas a encontrarem pontos de coleta de uma forma mais eficiente.
 
 
+
+
+
 🙅 Instalações e usos
+
 Clone ou faça o downlod desse repositório:
+
+
 
 # Clone o repositório
 $ git clone https://github.com/rosooares/nextlevelweek

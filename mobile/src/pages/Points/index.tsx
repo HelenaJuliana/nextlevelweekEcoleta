@@ -1,32 +1,61 @@
-import React from 'react';
+import React,{useState,useEffect } from 'react';
 import Constants from 'expo-constants';
 import { View,Text,Image,StyleSheet,TouchableOpacity,ScrollView} from 'react-native';
 import {Feather as Icon} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import MapView,{ Marker} from 'react-native-maps';
 import {SvgUri } from 'react-native-svg';
+import api from '../../services/api';
 
+interface Item{
+  id: number;
+  title: string;
+  image_url:string;
+}
 
 const Points = () =>{
+
+const [items,setItems] = useState<Item[]>([]);
+const [selectedItems, setSelectedItems ] = useState<number[]>([]);
 const navigation=useNavigation();
 
-function handleNavigateBack(){
- navigation.goBack();
+useEffect(() => {
+api.get('items').then(response => {
+  setItems(response.data)
+
+});
+
+},[]);
+
+  function handleNavigateBack(){
+  navigation.goBack();
+  }
+
+  function handleNavigateToDetail(){
+    navigation.navigate('Detail');
+  }
+
+  function handSelectItems(id:number){
+    const alreadySelected = selectedItems.findIndex(item =>  item === id);
+
+    if(alreadySelected >= 0){
+        const filteredItems = selectedItems.filter(item => item !== id);
+        setSelectedItems(filteredItems);
+        
+    } else 
+    setSelectedItems([ ...selectedItems, id]);
 }
 
-function handleNavigateToDetail(){
-  navigation.navigate('Detail');
-}
 
-    return (
+  return (
    <>     
     <View style={styles.container}>
     <TouchableOpacity onPress={handleNavigateBack}>
         <Icon name="arrow-left" size={20} color = "34cb79" />
     </TouchableOpacity>
     
-    <Text style={styles.title}>Bem vindo.</Text>
-    <Text style={styles.description}>Encontre no mapa um ponto de coleta.</Text>
+      <Text style={styles.title}>Bem vindo.</Text>
+      <Text style={styles.description}>Encontre no mapa um ponto de coleta.</Text>
 
    <View style={styles.mapContainer}>
        <MapView 
@@ -38,7 +67,6 @@ function handleNavigateToDetail(){
            longitudeDelta:0.014,
        }}
 >
-
     <Marker
     style={styles.mapMarker}
     onPress={handleNavigateToDetail}
@@ -63,47 +91,34 @@ function handleNavigateToDetail(){
     
     <View style={styles.itemsContainer}>
 <ScrollView 
-horizontal 
-showsVerticalScrollIndicator={false}
-contentContainerStyle={{paddingHorizontal:20
+  horizontal 
+  showsVerticalScrollIndicator={false}
+  contentContainerStyle={{paddingHorizontal:20
 }}
 >
-        <TouchableOpacity style={styles.item} onPress = {() =>{}}>
-        <SvgUri width={42} height={42} uri="http://10.0.0.6:3333/uploads/lampadas.svg" />
-        <Text style={styles.itemTitle}>Lâmpadas</Text>
-         </TouchableOpacity> 
+    {items.map(item => (
 
-         <TouchableOpacity style={styles.item} onPress = {() =>{}}>
-        <SvgUri width={42} height={42} uri="http://10.0.0.6:3333/uploads/lampadas.svg" />
-        <Text style={styles.itemTitle}>Lâmpadas</Text>
-         </TouchableOpacity> 
-
-         <TouchableOpacity style={styles.item} onPress = {() =>{}}>
-        <SvgUri width={42} height={42} uri="http://10.0.0.6:3333/uploads/lampadas.svg" />
-        <Text style={styles.itemTitle}>Lâmpadas</Text>
-         </TouchableOpacity> 
-
-         <TouchableOpacity style={styles.item} onPress = {() =>{}}>
-        <SvgUri width={42} height={42} uri="http://10.0.0.6:3333/uploads/lampadas.svg" />
-        <Text style={styles.itemTitle}>Lâmpadas</Text>
-         </TouchableOpacity> 
-
-         <TouchableOpacity style={styles.item} onPress = {() =>{}}>
-        <SvgUri width={42} height={42} uri="http://10.0.0.6:3333/uploads/lampadas.svg" />
-        <Text style={styles.itemTitle}>Lâmpadas</Text>
-         </TouchableOpacity> 
-
-         <TouchableOpacity style={styles.item} onPress = {() =>{}}>
-        <SvgUri width={42} height={42} uri="http://10.0.0.6:3333/uploads/lampadas.svg" />
-        <Text style={styles.itemTitle}>Lâmpadas</Text>
-         </TouchableOpacity>   
+        <TouchableOpacity
+         key={ String(item.id)} 
+         style={[
+           styles.item,
+           selectedItems.includes(item.id) ? styles.selectedItem:{}
+          ]} 
+         onPress = {() =>{handSelectItems(item.id)}}
+         activeOpacity={0.6}
+         >
+          <SvgUri width={42} height={42} uri={item.image_url} />
+          <Text style={styles.itemTitle}>{item.title}</Text>
+        </TouchableOpacity> 
+          
+    ))}
+        
 </ScrollView>
     </View>
   
 </>
     );
 };
-
 
 const styles = StyleSheet.create({
     container: {
